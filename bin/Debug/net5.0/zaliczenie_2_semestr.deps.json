@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "zaliczenie_2_semestr/1.0.0": {
+        "runtime": {
+          "zaliczenie_2_semestr.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "zaliczenie_2_semestr/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

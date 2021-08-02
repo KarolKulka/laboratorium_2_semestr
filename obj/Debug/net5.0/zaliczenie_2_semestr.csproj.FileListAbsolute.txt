@@ -1,0 +1,15 @@
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/bin/Debug/net5.0/zaliczenie_2_semestr.deps.json
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/bin/Debug/net5.0/zaliczenie_2_semestr.runtimeconfig.json
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/bin/Debug/net5.0/zaliczenie_2_semestr.runtimeconfig.dev.json
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/bin/Debug/net5.0/zaliczenie_2_semestr.dll
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/bin/Debug/net5.0/ref/zaliczenie_2_semestr.dll
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/bin/Debug/net5.0/zaliczenie_2_semestr.pdb
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/obj/Debug/net5.0/zaliczenie_2_semestr.csprojAssemblyReference.cache
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/obj/Debug/net5.0/zaliczenie_2_semestr.GeneratedMSBuildEditorConfig.editorconfig
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/obj/Debug/net5.0/zaliczenie_2_semestr.AssemblyInfoInputs.cache
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/obj/Debug/net5.0/zaliczenie_2_semestr.AssemblyInfo.cs
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/obj/Debug/net5.0/zaliczenie_2_semestr.csproj.CoreCompileInputs.cache
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/obj/Debug/net5.0/zaliczenie_2_semestr.dll
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/obj/Debug/net5.0/ref/zaliczenie_2_semestr.dll
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/obj/Debug/net5.0/zaliczenie_2_semestr.pdb
+/Volumes/Kulka/STUDIA/programowanie/zaliczenie_2_semestr/obj/Debug/net5.0/zaliczenie_2_semestr.genruntimeconfig.cache
