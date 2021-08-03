@@ -32,7 +32,7 @@ namespace zaliczenie_2_semestr
             Random rnd = new Random();
             Display = new Display();
 
-            Id = rnd.Next(100, 1000);
+            Id = rnd.Next(10, 99);
             Name = name;
             Stars = stars;
             Description = description;
