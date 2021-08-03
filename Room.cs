@@ -17,6 +17,7 @@ namespace zaliczenie_2_semestr
             Display = new Display();
             Amenities = new List<string>();
 
+            Id = rnd.Next(100,1000);
             Name = name;
             BedCount = bedCount;
             foreach (string amenity in amenities.Split(";"))
@@ -42,6 +43,7 @@ namespace zaliczenie_2_semestr
         public void SetHotelId(int hotelId)
         {
             HotelId = hotelId;
+            Id = int.Parse(Id.ToString() + hotelId.ToString());
         }
     }
 }

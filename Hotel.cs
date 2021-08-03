@@ -4,6 +4,7 @@ namespace zaliczenie_2_semestr
 {
     public class Hotel
     {
+        private List<Room> rooms = new List<Room>();
         public int Id { get; set; }
         public string Name { get; set; }
         public int Stars { get; set; }
@@ -11,7 +12,21 @@ namespace zaliczenie_2_semestr
         public Address Address { get; set; }
         public string Email { get; set; }
         public Display Display { get; set; }
-        protected List<Room> Rooms = new List<Room>();
+        public Room Room
+        {
+            set
+            {
+                value.SetHotelId(Id);
+                rooms.Add(value);
+            }
+        }
+        public List<Room> Rooms 
+        { 
+            get
+            {
+                return rooms;
+            }
+        }
         public Hotel(string name, int stars, string description, Address address, string email)
         {
             Random rnd = new Random();
@@ -39,12 +54,6 @@ namespace zaliczenie_2_semestr
             {
                 room.Print();
             }
-        }
-
-        public void AddRoom(Room room)
-        {
-            room.SetHotelId(Id);
-            Rooms.Add(room);
         }
     }
 }
