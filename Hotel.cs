@@ -55,5 +55,10 @@ namespace zaliczenie_2_semestr
                 room.Print();
             }
         }
+        public void PrintNameId()
+        {
+            Display.ConsolePrint("ID: " + Id);
+            Display.ConsolePrint("Nazwa: " + Name);
+        }
     }
 }
