@@ -187,28 +187,30 @@ namespace zaliczenie_2_semestr
         }
         protected void PrepareHotels()
         {
+            Random rnd = new Random();
+
             Hotel firstHotel = new Hotel("Hotel pierwszy", 3, "Opis pierwszego hotelu", new Address("Szubińska", "12A", "85-123", "Bydgoszcz"), "contact@pierwszy.pl");
-            firstHotel.Room = new Room("pierwszy pokój", 2, "wi-fi;balkon", 12.31);
-            firstHotel.Room = new Room("drugi pokój", 5, "wi-fi;balkon;wanna", 50);
-            firstHotel.Room = new Room("trzeci pokój", 1, "wi-fi;taras", 43.7);
-            firstHotel.Room = new Room("czwarty pokój", 2, "wi-fi;taras;telewizor", 44);
-            firstHotel.Room = new Room("piąty pokój", 3, "wi-fi;taras;lodówka", 49);
+            firstHotel.Room = new Room("pierwszy pokój", rnd.Next(1, 6), "wi-fi;balkon", 12.31);
+            firstHotel.Room = new Room("drugi pokój", rnd.Next(1, 6), "wi-fi;balkon;wanna", 50);
+            firstHotel.Room = new Room("trzeci pokój", rnd.Next(1, 6), "wi-fi;taras", 43.7);
+            firstHotel.Room = new Room("czwarty pokój", rnd.Next(1, 6), "wi-fi;taras;telewizor", 44);
+            firstHotel.Room = new Room("piąty pokój", rnd.Next(1, 6), "wi-fi;taras;lodówka", 49);
             PrepareRooms(firstHotel);
             Hotels.Add(firstHotel);
             Hotel secondHotel = new Hotel("Hotel drugi", 5, "Opis drugiego hotelu", new Address("Jagiellońska", "2", "89-423", "Grudziądz"), "contact@drugi.pl");
-            secondHotel.Room = new Room("pierwszy pokój", 3, "balkon", 76);
-            secondHotel.Room = new Room("drugi pokój", 1, "wi-fi;wanna", 65.12);
-            secondHotel.Room = new Room("trzeci pokój", 4, "wi-fi;sauna", 31);
-            secondHotel.Room = new Room("czwarty pokój", 2, "wi-fi;sauna;TV;lodówka;salon", 99);
-            secondHotel.Room = new Room("piąty pokój", 2, "wi-fi;sauna;TV;taras;jacuzzi", 87);
+            secondHotel.Room = new Room("pierwszy pokój", rnd.Next(1, 6), "balkon", 76);
+            secondHotel.Room = new Room("drugi pokój", rnd.Next(1, 6), "wi-fi;wanna", 65.12);
+            secondHotel.Room = new Room("trzeci pokój", rnd.Next(1, 6), "wi-fi;sauna", 31);
+            secondHotel.Room = new Room("czwarty pokój", rnd.Next(1, 6), "wi-fi;sauna;TV;lodówka;salon", 99);
+            secondHotel.Room = new Room("piąty pokój", rnd.Next(1, 6), "wi-fi;sauna;TV;taras;jacuzzi", 87);
             PrepareRooms(secondHotel);
             Hotels.Add(secondHotel);
             Hotel thirdHotel = new Hotel("Hotel trzeci", 1, "Opis trzeciego hotelu", new Address("Warszawska", "12A", "81-713", "Toruń"), "contact@trzeci.pl");
-            thirdHotel.Room = new Room("pierwszy pokój", 1, "jacuzzi", 76);
-            thirdHotel.Room = new Room("drugi pokój", 1, "wi-fi;taras", 61);
-            thirdHotel.Room = new Room("trzeci pokój", 2, "sauna", 25);
-            secondHotel.Room = new Room("czwarty pokój", 4, "wi-fi;sauna;TV;lodówka;salon", 99);
-            secondHotel.Room = new Room("piąty pokój", 5, "wi-fi;sauna;TV;taras;jacuzzi;wanna", 120);
+            thirdHotel.Room = new Room("pierwszy pokój", rnd.Next(1, 6), "jacuzzi", 76);
+            thirdHotel.Room = new Room("drugi pokój", rnd.Next(1, 6), "wi-fi;taras", 61);
+            thirdHotel.Room = new Room("trzeci pokój", rnd.Next(1, 6), "sauna", 25);
+            secondHotel.Room = new Room("czwarty pokój", rnd.Next(1, 6), "wi-fi;sauna;TV;lodówka;salon", 99);
+            secondHotel.Room = new Room("piąty pokój", rnd.Next(1, 6), "wi-fi;sauna;TV;taras;jacuzzi;wanna", 120);
             PrepareRooms(thirdHotel);
             Hotels.Add(thirdHotel);
         }
@@ -309,7 +311,8 @@ namespace zaliczenie_2_semestr
                 Display.ConsolePrint("-------");
                 counter++;
             }
-            if (counter == 0){
+            if (counter == 0)
+            {
                 Display.ConsolePrint("Podany sprzedawca nie dokonał zadnej sprzedazy!");
             }
             MenuInvoker();
@@ -357,7 +360,7 @@ namespace zaliczenie_2_semestr
                 method = menuActions[lastChoosenMenuOption];
             }
 
-            if (method == "exitProgram")
+            if (method == "ExitProgram")
             {
                 parameters = new string[1];
                 parameters[0] = "defaultExit";
@@ -374,7 +377,7 @@ namespace zaliczenie_2_semestr
             foreach (Reservation reservation in Reservations.FindAll(r => (r.SellDate < currentDate) && (r.SellDate > currentDate.AddDays(-30))))
             {
                 reservation.Print();
-                Display.ConsolePrint("-----");                
+                Display.ConsolePrint("-----");
                 counter++;
             }
             if (counter == 0)
@@ -399,12 +402,40 @@ namespace zaliczenie_2_semestr
             int hotelIdInt = int.Parse(hotelId);
             Hotel currentHotel = Hotels.Find(h => h.Id == hotelIdInt);
             Display.ConsolePrint("\n------\nPonizej znajduje się lista rezerwacji kończących lub zaczynających się w przyszłym tygodniu dla hotelu: " + currentHotel.Name + "\n");
+            List<int> roomIds = new List<int>();
             foreach (Room room in Rooms.FindAll(r => r.HotelId == currentHotel.Id))
             {
-                if (room.BedCount == 2)
-                {
-                    room.Print();
-                }
+                roomIds.Add(room.Id);
+            }
+            DateTime today = DateTime.Now;
+            int currentDayOfWeek = (int)today.DayOfWeek;
+            int nextWeekdAddDays = 0;
+            if (currentDayOfWeek == 0)
+            {
+                nextWeekdAddDays = 1;
+            }
+            else
+            {
+                nextWeekdAddDays = 8 - currentDayOfWeek;
+            }
+            int existingReservations = 0;
+            foreach (
+                Reservation reservation in Reservations.FindAll(
+                    r => (roomIds.Contains(r.RoomId) &&
+                            (
+                                (r.BeginDate >= today.AddDays(nextWeekdAddDays) && r.BeginDate <= today.AddDays(nextWeekdAddDays + 6))
+                                || (r.EndDate >= today.AddDays(nextWeekdAddDays) && r.EndDate <= today.AddDays(nextWeekdAddDays + 6))
+                            )
+                    )
+                )
+            )
+            {
+                reservation.Print();
+                Display.ConsolePrint("--------");
+                existingReservations++;
+            }
+            if (existingReservations == 0){
+                Display.ConsolePrint("Wybrany hotel nie ma rezerwacji kończących lub zaczynających się w przyszłym tygodniu");
             }
             MenuInvoker();
         }
