@@ -2,6 +2,7 @@
 using System.Threading;
 using System;
 using System.Reflection;
+using System.Linq;
 
 namespace zaliczenie_2_semestr
 {
@@ -22,8 +23,9 @@ namespace zaliczenie_2_semestr
             { "menuPos3", "3. Wyświetl rezerwacje sprzedane w ciągu ostatnich 30 dni." },
             { "menuPos4", "4. Wyświetl wszystkie rezerwacje wybranego hotelu, które rozpoczynają lub kończą się w przyszłym tygodniu." },
             { "menuPos5", "5. Wyświetl ranking najlepszych sprzedawców z wybranego miesiąca." },
-            { "menuPos6", "6. Wyświetl wszystkich klientów ze statusem „VIP”, którzy wybierają się do Krakowa." },
-            { "menuPos7", "7. Wyjście z programu" },
+            { "menuPos6", "6. Wyświetl rezerwacje wszystkich klientów z Polski, którzy wybierają się do hoteli w Grecji." },
+            { "menuPos7", "7. Wyświetl wszystkich klientów ze statusem „VIP”, którzy wybierają się do Krakowa." },
+            { "menuPos8", "8. Wyjście z programu" },
             { "chooseMenuOption", "Wybierz pozycję z menu 1 - " },
             { "errorMenuOptionInt", "Podaj poprawny numer pozycji z menu." },
         };
@@ -34,8 +36,9 @@ namespace zaliczenie_2_semestr
             { 3, "ShowReservationsSoldInLastThirtyDays" },
             { 4, "ShowHotelReservationsBeginingOrEndingInNextWeek" },
             { 5, "ShowBestSellersFromGivenMonth" },
-            { 6, "ShowAllClientsWithVipStatus" },
-            { 7, "ExitProgram" },
+            { 6, "ShowClientsFromPolandGoingToGreece" },
+            { 7, "ShowAllClientsWithVipStatus" },
+            { 8, "ExitProgram" },
         };
         protected int lastChoosenMenuOption = 0;
         static void Main(string[] args)
@@ -52,7 +55,7 @@ namespace zaliczenie_2_semestr
             Console.Clear();
             Notify("menuHeader");
             int i;
-            for (i = 1; i <= 7; i++)
+            for (i = 1; i <= 8; i++)
             {
                 Notify("menuPos" + i);
             }
@@ -157,13 +160,13 @@ namespace zaliczenie_2_semestr
             Clients.Add(firstClient);
             Client secondClient = new Client("Tomek", "Kowalewski", "kowalktom@gmail.com", "+48 123 666 452", new Address("Śleszyńska", "12", "1A", "85-311", "Bydgoszcz"), "VIP", "1145B", "Some info");
             Clients.Add(secondClient);
-            Client thirdClient = new Client("Anna", "Gontek", "anngont@gmail.com", "+48 123 456 667", new Address("Gdańska", "45", "21", "87-123", "Toruń"), "Normal", "8754Z", "Info");
+            Client thirdClient = new Client("Anna", "Gontek", "anngont@gmail.com", "+48 123 456 667", new Address("Gdańska", "45", "21", "87-123", "Londyn", "Wielka Brytania"), "Normal", "8754Z", "Info");
             Clients.Add(thirdClient);
             Client fourthClient = new Client("Iwona", "Świątecka", "swiiw@gmail.com", "+48 765 890 112", new Address("Towarowa", "13", "81-319", "Włocławek"), "Normal", "0987H", "zxcasdqwe zxcasd");
             Clients.Add(fourthClient);
             Client fifthClient = new Client("Marian", "Zdun", "marzdu@gmail.com", "+48 555 678 231", new Address("Porzeczkowa", "1", "14", "76-322", "Piła"), "VIP", "8851L", "info info info");
             Clients.Add(fifthClient);
-            Client sixthClient = new Client("Janusz", "Nosacz", "nosjan1234@gmail.com", "+48 986 874 654", new Address("Szubińska", "4C", "78", "85-302", "Bydgoszcz"), "Normal", "9871A", "some additional info");
+            Client sixthClient = new Client("Janusz", "Nosacz", "nosjan1234@gmail.com", "+48 986 874 654", new Address("Szubińska", "4C", "78", "85-302", "Berlin", "Niemcy"), "Normal", "9871A", "some additional info");
             Clients.Add(sixthClient);
             Client seventhClient = new Client("Irena", "Kowal", "kowalirena@gmail.com", "+48 546 789 342", new Address("Jodłowa", "12", "11", "85-311", "Bydgoszcz"), "VIP", "98765F", "This is extra info");
             Clients.Add(seventhClient);
@@ -197,7 +200,7 @@ namespace zaliczenie_2_semestr
             firstHotel.Room = new Room("piąty pokój", rnd.Next(1, 6), "wi-fi;taras;lodówka", 49);
             PrepareRooms(firstHotel);
             Hotels.Add(firstHotel);
-            Hotel secondHotel = new Hotel("Hotel drugi", 5, "Opis drugiego hotelu", new Address("Jagiellońska", "2", "89-423", "Grudziądz"), "contact@drugi.pl");
+            Hotel secondHotel = new Hotel("Hotel drugi", 5, "Opis drugiego hotelu", new Address("Jagiellońska", "2", "89-423", "Kraków"), "contact@drugi.pl");
             secondHotel.Room = new Room("pierwszy pokój", rnd.Next(1, 6), "balkon", 76);
             secondHotel.Room = new Room("drugi pokój", rnd.Next(1, 6), "wi-fi;wanna", 65.12);
             secondHotel.Room = new Room("trzeci pokój", rnd.Next(1, 6), "wi-fi;sauna", 31);
@@ -209,10 +212,18 @@ namespace zaliczenie_2_semestr
             thirdHotel.Room = new Room("pierwszy pokój", rnd.Next(1, 6), "jacuzzi", 76);
             thirdHotel.Room = new Room("drugi pokój", rnd.Next(1, 6), "wi-fi;taras", 61);
             thirdHotel.Room = new Room("trzeci pokój", rnd.Next(1, 6), "sauna", 25);
-            secondHotel.Room = new Room("czwarty pokój", rnd.Next(1, 6), "wi-fi;sauna;TV;lodówka;salon", 99);
-            secondHotel.Room = new Room("piąty pokój", rnd.Next(1, 6), "wi-fi;sauna;TV;taras;jacuzzi;wanna", 120);
+            thirdHotel.Room = new Room("czwarty pokój", rnd.Next(1, 6), "wi-fi;sauna;TV;lodówka;salon", 99);
+            thirdHotel.Room = new Room("piąty pokój", rnd.Next(1, 6), "wi-fi;sauna;TV;taras;jacuzzi;wanna", 120);
             PrepareRooms(thirdHotel);
             Hotels.Add(thirdHotel);
+            Hotel fourthHotel = new Hotel("Hotel trzeci", 1, "Opis trzeciego hotelu", new Address("Ateńska", "12A", "", "123123", "Ateny", "Grecja"), "contact@czwarty.pl");
+            fourthHotel.Room = new Room("pierwszy pokój", rnd.Next(1, 6), "jacuzzi", 12);
+            fourthHotel.Room = new Room("drugi pokój", rnd.Next(1, 6), "wi-fi;taras", 66);
+            fourthHotel.Room = new Room("trzeci pokój", rnd.Next(1, 6), "sauna", 99);
+            fourthHotel.Room = new Room("czwarty pokój", rnd.Next(1, 6), "wi-fi;sauna;TV;lodówka;salon", 15);
+            fourthHotel.Room = new Room("piąty pokój", rnd.Next(1, 6), "wi-fi;sauna;TV;taras;jacuzzi;wanna", 120);
+            PrepareRooms(fourthHotel);
+            Hotels.Add(fourthHotel);
         }
         protected void PrepareRooms(Hotel hotel)
         {
@@ -434,10 +445,157 @@ namespace zaliczenie_2_semestr
                 Display.ConsolePrint("--------");
                 existingReservations++;
             }
-            if (existingReservations == 0){
+            if (existingReservations == 0)
+            {
                 Display.ConsolePrint("Wybrany hotel nie ma rezerwacji kończących lub zaczynających się w przyszłym tygodniu");
             }
             MenuInvoker();
+        }
+        protected bool ValidMonth(int month)
+        {
+            if (month < 1 || month > 12)
+            {
+                return false;
+            }
+
+            return true;
+        }
+        protected string GetMonthName(int month)
+        {
+            switch (month)
+            {
+                case 1:
+                    return "Styczeń";
+                case 2:
+                    return "Luty";
+                case 3:
+                    return "Marzec";
+                case 4:
+                    return "Kwiecień";
+                case 5:
+                    return "Maj";
+                case 6:
+                    return "Czerwiec";
+                case 7:
+                    return "Lipiec";
+                case 8:
+                    return "Sierpień";
+                case 9:
+                    return "Wrzesień";
+                case 10:
+                    return "Październik";
+                case 11:
+                    return "Listopad";
+                case 12:
+                    return "Grudzień";
+            }
+
+            return "invalid month";
+        }
+        public void ShowBestSellersFromGivenMonth()
+        {
+            Display.ConsolePrint("Podaj numer miesiąca dla jakiego chcesz sprawdzić ranking sprzedawców");
+            string month = Console.ReadLine();
+            while (!ValidMonth(int.Parse(month)))
+            {
+                CustomNotify("Podany miesiąc jest błędny!");
+                CustomNotify("Podaj numer miesiąca dla jakiego chcesz sprawdzić ranking sprzedawców.");
+                month = Console.ReadLine();
+            }
+
+            int monthInt = int.Parse(month);
+
+            Display.ConsolePrint("Lista najlepszych sprzedawców w miesiącu: " + GetMonthName(int.Parse(month)));
+            Display.ConsolePrint("Wyświetlani są tylko Ci sprzedawcy którzy dokonali sprzdazy w danym miesiącu");
+            foreach (Seller seller in Sellers)
+            {
+                seller.ResetCommision();
+            }
+            foreach (Reservation reservation in Reservations)
+            {
+                if (reservation.SellDate.Month == monthInt)
+                {
+                    foreach (Seller seller in Sellers)
+                    {
+                        if (seller.Id == reservation.SellerId)
+                        {
+                            seller.AddCommision(reservation.Cost);
+                        }
+                    }
+                }
+            }
+
+            List<Seller> sellersRanking = Sellers.OrderByDescending(s => s.Commision).ToList();
+
+            int counter = 1;
+            foreach (Seller bestSeller in sellersRanking.FindAll(s => s.Commision > 0))
+            {
+                Display.ConsolePrint("#" + counter);
+                bestSeller.PrintCommisionInfo();
+                Display.ConsolePrint("-----------\n\n");
+                counter++;
+            }
+
+            MenuInvoker();
+        }
+        public void ShowClientsFromPolandGoingToGreece()
+        {
+            List<Reservation> ReservationsClientsFromPolandInGreece = new List<Reservation>();
+            foreach (Hotel hotel in Hotels.FindAll(h => h.Address.Country == "Grecja"))
+            {
+                foreach (Room room in Rooms.FindAll(r => r.HotelId == hotel.Id))
+                {
+                    foreach (Reservation reservation in Reservations.FindAll(re => re.RoomId == room.Id))
+                    {
+                        Client client = Clients.Find(c => c.Id == reservation.ClientId);
+                        if (client.Address.Country == "Polska")
+                        {
+                            ReservationsClientsFromPolandInGreece.Add(reservation);
+                        }
+                    }
+                }
+            }
+
+            Display.ConsolePrint("Rezerwacje klientów z Polski jadących do Grecji: ");
+            foreach (Reservation reservation1 in ReservationsClientsFromPolandInGreece)
+            {
+                reservation1.Print();
+                Display.ConsolePrint("-------");
+            }
+
+            if (ReservationsClientsFromPolandInGreece.Count == 0)
+            {
+                Display.ConsolePrint("Nie ma zadnych rezerwacji klientów z Polski w Grecji");
+            }
+
+            MenuInvoker();
+        }
+        public void ShowAllClientsWithVipStatus()
+        {
+            List<int> HotelsInCracowIds = new List<int>();
+            foreach (Hotel hotel in Hotels.FindAll(h => h.Address.City == "Kraków"))
+            {
+                HotelsInCracowIds.Add(hotel.Id);
+            }
+
+            if (HotelsInCracowIds.Count == 0){
+                Display.ConsolePrint("Nie ma w tej chwili zadnych hoteli w Krakowie :(");
+                MenuInvoker();
+            }
+
+            List<int> VipClientIds = new List<int>();
+            foreach (Client client in Clients.FindAll(c => c.Status == "VIP")){
+                VipClientIds.Add(client.Id);
+            }
+
+            List<Reservation> ReservationsInCracowHotels = new List<Reservation>();
+            foreach(Room room in Rooms.FindAll(r => HotelsInCracowIds.Contains(r.HotelId))){
+                foreach (Reservation reservation in Reservations.FindAll(re => (re.RoomId == room.Id && VipClientIds.Contains(re.ClientId)))){
+                    ReservationsInCracowHotels.Add(reservation);
+                }
+            }
+
+            
         }
     }
 }

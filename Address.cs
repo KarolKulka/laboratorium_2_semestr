@@ -7,6 +7,7 @@ namespace zaliczenie_2_semestr
         public string Appartment { get; set; }
         public string PostalCode { get; set; }
         public string City { get; set; }
+        public string Country { get; set; }
         public Display Display { get; set; }
         public Address(string street, string building, string appartment, string postalCode, string city)
         {
@@ -17,6 +18,18 @@ namespace zaliczenie_2_semestr
             Appartment = appartment;
             PostalCode = postalCode;
             City = city;
+            Country = "Polska";
+        }
+        public Address(string street, string building, string appartment, string postalCode, string city, string country)
+        {
+            Display = new Display();
+
+            Street = street;
+            Building = building;
+            Appartment = appartment;
+            PostalCode = postalCode;
+            City = city;
+            Country = country;
         }
 
         public Address(string street, string building, string postalCode, string city)
@@ -28,6 +41,7 @@ namespace zaliczenie_2_semestr
             PostalCode = postalCode;
             City = city;
             Appartment = "";
+            Country = "Polska";
         }
 
         public void Print()
@@ -35,9 +49,12 @@ namespace zaliczenie_2_semestr
             Display.ConsolePrint("---------------");
             Display.ConsolePrint("ADRES: ");
             Display.ConsolePrint(Street + " " + Building, false);
-            if (Appartment != ""){
+            if (Appartment != "")
+            {
                 Display.ConsolePrint("/" + Appartment);
-            }else{
+            }
+            else
+            {
                 Display.ConsolePrint("");
             }
             Display.ConsolePrint(PostalCode + " " + City);
