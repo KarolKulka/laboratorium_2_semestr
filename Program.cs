@@ -589,13 +589,30 @@ namespace zaliczenie_2_semestr
             }
 
             List<Reservation> ReservationsInCracowHotels = new List<Reservation>();
+            List<int> VipClientsGoingToCracow = new List<int>();
             foreach(Room room in Rooms.FindAll(r => HotelsInCracowIds.Contains(r.HotelId))){
                 foreach (Reservation reservation in Reservations.FindAll(re => (re.RoomId == room.Id && VipClientIds.Contains(re.ClientId)))){
                     ReservationsInCracowHotels.Add(reservation);
+                    VipClientsGoingToCracow.Add(reservation.ClientId);
                 }
             }
 
-            
+            int counter = 0;
+            foreach(Client client1 in Clients.FindAll(c1 => VipClientsGoingToCracow.Contains(c1.Id))){
+                if (counter == 0 ){
+                    Display.ConsolePrint("Ponizej znajduje się lista klientów ze statusem VIP wybierających się do Krakowa: \n");
+                }
+                client1.Print();
+                Display.ConsolePrint("-----------\n");
+                counter++;
+            }
+
+            if (counter == 0){
+                Display.ConsolePrint("Żaden klient ze statusem VIP nie wybiera się do Krakowa :(");
+                MenuInvoker();
+            }
+
+                MenuInvoker();
         }
     }
 }
